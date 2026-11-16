@@ -5,7 +5,7 @@ Backend Fastify/TypeScript para criação de armas e mapas por IA no Roblox.
 Node.js 20+. Execute `npm install`, copie `.env.example` para `.env`, preencha as credenciais e rode `npm run dev`. Build: `npm run build`; testes: `npm test`.
 
 ## Provedor de IA
-O backend aceita **OpenAI** e **OpenRouter**, usando o SDK `openai` e o formato Chat Completions compatível.
+O backend aceita **OpenAI** e **OpenRouter**, usando `fetch` nativo do Node.js para chamar a API Chat Completions compatível. Isso evita conflitos entre dependências do SDK e a versão do Zod usada pelo projeto.
 
 Para usar OpenRouter:
 1. Crie uma chave em [openrouter.ai/keys](https://openrouter.ai/keys).
