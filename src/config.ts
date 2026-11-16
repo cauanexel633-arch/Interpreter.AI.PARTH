@@ -1,1 +1,18 @@
-import 'dotenv/config'; import {z} from 'zod'; const s=z.object({PORT:z.coerce.number().int().positive().default(3000),SUPABASE_URL:z.string().url(),SUPABASE_SERVICE_ROLE_KEY:z.string().min(1),AI_PROVIDER:z.enum(['openai']).default('openai'),AI_MODEL:z.string().min(1),AI_API_KEY:z.string().min(1),AI_BASE_URL:z.string().url().optional(),GAME_SHARED_TOKEN:z.string().min(32),AI_TIMEOUT_MS:z.coerce.number().int().positive().default(8000),AI_TIMEOUT_MAP_MS:z.coerce.number().int().positive().default(20000),RATE_LIMIT_POR_MINUTO:z.coerce.number().int().positive().default(10)}); export const config=s.parse(process.env);
+import 'dotenv/config';
+import { z } from 'zod';
+
+const schema = z.object({
+  PORT: z.coerce.number().int().positive().default(3000),
+  SUPABASE_URL: z.string().url(),
+  SUPABASE_SERVICE_ROLE_KEY: z.string().min(1),
+  AI_PROVIDER: z.enum(['openai', 'openrouter']).default('openai'),
+  AI_MODEL: z.string().min(1),
+  AI_API_KEY: z.string().min(1),
+  AI_BASE_URL: z.string().url().optional(),
+  GAME_SHARED_TOKEN: z.string().min(32),
+  AI_TIMEOUT_MS: z.coerce.number().int().positive().default(8000),
+  AI_TIMEOUT_MAP_MS: z.coerce.number().int().positive().default(20000),
+  RATE_LIMIT_POR_MINUTO: z.coerce.number().int().positive().default(10),
+});
+
+export const config = schema.parse(process.env);
