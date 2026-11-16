@@ -18,10 +18,10 @@ export class OpenAIProvider implements AIProvider {
   ).replace(/\/+$/, '');
 
   async gerar(system: string, pedido: string, timeout: number): Promise<string> {
-    const response = await fetch(\`\${this.baseUrl}/chat/completions\`, {
+    const response = await fetch(`\${this.baseUrl}/chat/completions`, {
       method: 'POST',
       headers: {
-        Authorization: \`Bearer \${config.AI_API_KEY}\`,
+        Authorization: `Bearer \${config.AI_API_KEY}`,
         'Content-Type': 'application/json',
         ...(config.AI_PROVIDER === 'openrouter'
           ? {
@@ -38,7 +38,7 @@ export class OpenAIProvider implements AIProvider {
           { role: 'system', content: system },
           {
             role: 'user',
-            content: '<pedido>\\n' + pedido.replaceAll('</pedido>', '<\\\\/pedido>') + '\\n</pedido>',
+            content: '<pedido>\n' + pedido.replaceAll('</pedido>', '<\\/pedido>') + '\n</pedido>',
           },
         ],
       }),
@@ -47,7 +47,7 @@ export class OpenAIProvider implements AIProvider {
 
     if (!response.ok) {
       const details = await response.text().catch(() => '');
-      throw new Error(\`AI provider HTTP \${response.status}: \${details.slice(0, 1000)}\`);
+      throw new Error(`AI provider HTTP \${response.status}: \${details.slice(0, 1000)}`);
     }
 
     const result: unknown = await response.json();
