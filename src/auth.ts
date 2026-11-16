@@ -1,1 +1,1 @@
-import {timingSafeEqual} from 'node:crypto'; export function validarToken(h:string|undefined,e:string){if(!h?.startsWith('Bearer '))return false;const a=Buffer.from(h.slice(7)),b=Buffer.from(e);return a.length===b.length&&timingSafeEqual(a,b);}
+import{createHash,timingSafeEqual}from'node:crypto';export function validarToken(h:string|undefined,e:string){if(!h?.startsWith('Bearer '))return false;const digest=(v:string)=>createHash('sha256').update(v,'utf8').digest();return timingSafeEqual(digest(h.slice(7)),digest(e));}
